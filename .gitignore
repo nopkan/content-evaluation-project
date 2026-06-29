@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.streamlit/*
+!.streamlit/config.toml
+.DS_Store
