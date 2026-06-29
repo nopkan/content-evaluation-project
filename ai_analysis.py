@@ -233,16 +233,20 @@ def generate_improved_image_with_openai(
         target_format=target_format,
     )
 
-    response = client.images.edit(
-        model=image_model,
-        image=source_file,
-        prompt=prompt,
-        n=1,
-        output_format="png",
-        quality="high",
-        input_fidelity="high",
-        size="auto",
-    )
+    edit_params = {
+        "model": image_model,
+        "image": source_file,
+        "prompt": prompt,
+        "n": 1,
+        "output_format": "png",
+        "quality": "high",
+        "size": "auto",
+    }
+
+    if image_model == "gpt-image-1.5":
+        edit_params["input_fidelity"] = "high"
+
+    response = client.images.edit(**edit_params)
 
     image_b64 = _extract_image_b64(response)
     return {
